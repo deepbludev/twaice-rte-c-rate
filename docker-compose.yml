@@ -1,0 +1,22 @@
+services:
+  api:
+    container_name: twaice-rte-api
+    build: .
+    # command: poetry run poe serve:dev
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/usr/src/app
+    # depends_on:
+    #   - pybase-db
+
+    # pybase-db:
+    #   container_name: pybase-db
+    #   build:
+    #     context: ./pybase/db
+    #     dockerfile: Dockerfile
+    #   expose:
+    #     - 5432
+    #   environment:
+    #     - POSTGRES_USER=postgres
+    #     - POSTGRES_PASSWORD=postgres
