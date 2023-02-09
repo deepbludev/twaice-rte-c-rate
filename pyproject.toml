@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "twaice-rte-c-rate"
+version = "0.1.0"
+description = ""
+authors = ["Carlo Casorzo <carlo@deepblu.dev>"]
+readme = "README.md"
+packages = [{include = "twaice_rte_c_rate"}]
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

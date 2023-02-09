@@ -1,0 +1,9 @@
+.ipynb_checkpoints
+.coverage
+.mypy_cache
+.vscode
+__pycache__
+.pytest_cache
+.env
+logs
+tmp
