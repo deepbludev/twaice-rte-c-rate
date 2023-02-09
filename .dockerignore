@@ -10,3 +10,7 @@ docker-compose.yml
 **/.DS_Store
 **/venv
 **/env
+**/.ipynb_checkpoints
+**/.ipynb
+**/.mypy_cache
+**/.pytest_cache

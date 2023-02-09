@@ -2,7 +2,6 @@ services:
   api:
     container_name: twaice-rte-api
     build: .
-    # command: poetry run poe serve:dev
     ports:
       - 8000:8000
     volumes:
