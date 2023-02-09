@@ -27,14 +27,14 @@ def rte(df: pd.DataFrame) -> float:
     cols = ["soc", "current", "voltage"]
 
     charge = df[df["current"] > 0][cols]
-    dSoC_charge = charge["soc"].diff().abs()
+    soc_charge = charge["soc"].diff().abs().sum()
     charged_energy = (charge["current"] * charge["voltage"]).sum()
 
     discharge = df[df["current"] < 0][cols]
-    dSoC_discharge = discharge["soc"].diff().abs()
+    soc_discharge = discharge["soc"].diff().abs().sum()
     discharged_energy = discharge["current"].abs() * discharge["voltage"]
 
-    soc_factor: float = dSoC_charge.sum() / dSoC_discharge.sum()
+    soc_factor: float = soc_charge / soc_discharge
 
     rte: float = soc_factor * discharged_energy.sum() / charged_energy.sum()
     return rte
@@ -58,5 +58,5 @@ def c_rate(df: pd.DataFrame, capacity: float) -> float:
     total_charge = df["soc"].diff().abs()
     soc_factor = 100 / total_charge.sum()
 
-    c_rate: float = (current.sum() / (capacity * 3600)) * soc_factor
+    c_rate: float = soc_factor * (current.sum() / (capacity * 3600))
     return c_rate
