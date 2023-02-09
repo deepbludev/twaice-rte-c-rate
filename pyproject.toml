@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "twaice-rte-c-rate"
+name = "twaice_rte"
 version = "0.1.0"
 description = ""
 authors = ["Carlo Casorzo <carlo@deepblu.dev>"]
 readme = "README.md"
-packages = [{include = "twaice_rte_c_rate"}]
+packages = [{include = "twaice_rte"}]
 
 [tool.isort]
 profile = "black"
@@ -16,6 +16,21 @@ line_length = 88
 
 [tool.poetry.dependencies]
 python = "^3.11"
+fastapi = "^0.90.0"
+requests = "^2.28.2"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.21.0"
+pytest = "^7.2.1"
+flake8 = "^6.0.0"
+black = "^22.12.0"
+isort = "^5.11.4"
+safety = "^2.3.5"
+bandit = "^1.7.4"
+pytest-cov = "^4.0.0"
+poethepoet = "^0.18.1"
+pytest-mypy = "^0.10.3"
+httpx = "^0.23.3"
 
 
 [build-system]
