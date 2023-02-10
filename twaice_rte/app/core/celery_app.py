@@ -19,6 +19,19 @@ celery = Celery(
 
 @celery.task
 def calculate_metrics(df_json: dict[str, Any], nominal_capacity: float) -> Metric:
+    """
+    Calculates the RTE and C-rate of a battery from given data.
+    Uses a ThreadPoolExecutor to calculate the metrics in parallel.
+
+    Args:
+        df_json (dict[str, Any]): JSON representation of the data.
+        nominal_capacity (float): Nominal capacity of the battery in Ah.
+
+    Returns:
+        Metric: The calculated metrics.
+
+    """
+
     df = pd.DataFrame.from_dict(df_json)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
