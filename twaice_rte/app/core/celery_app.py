@@ -1,3 +1,4 @@
+import concurrent.futures
 from typing import Any
 
 import pandas as pd
@@ -20,9 +21,13 @@ celery = Celery(
 def calculate_metrics(df_json: dict[str, Any], nominal_capacity: float) -> Metric:
     df = pd.DataFrame.from_dict(df_json)
 
-    result = Metric(
-        rte=rte(df),
-        c_rate=c_rate(df, nominal_capacity),
-        total_data_points=len(df),
-    )
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        rte_future = executor.submit(rte, df)
+        c_rate_future = executor.submit(c_rate, df, nominal_capacity)
+
+        result = Metric(
+            rte=rte_future.result(),
+            c_rate=c_rate_future.result(),
+            total_data_points=len(df),
+        )
     return result
