@@ -2,8 +2,8 @@ from typing import Any
 
 import pandas as pd
 
-from twaice_rte.app.api.models.metrics import Metric
 from twaice_rte.app.core.celery_app import celery
+from twaice_rte.app.models.metrics import Metric
 from twaice_rte.libs.metrics import c_rate, rte
 
 

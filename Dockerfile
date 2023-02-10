@@ -13,10 +13,10 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   # install poetry package manager
-  && pip3 install poetry==1.3 poethepoet==0.18.1 --no-cache-dir \
+  && pip install poetry==1.3 poethepoet==0.18.1 --no-cache-dir \
   && poetry config virtualenvs.create false
 
 COPY . .
-RUN poetry install 
+RUN poetry install --only main
 
-CMD ["poetry", "run", "poe", "serve:dev"]
+EXPOSE 8000
