@@ -27,13 +27,13 @@ def rte(df: pd.DataFrame) -> float:
     cols = ["soc", "current", "voltage"]
 
     charge = df[df["current"] > 0][cols]
-    soc_charge = charge["soc"].diff().abs().sum()
-    charged_energy = (charge["current"] * charge["voltage"]).sum()
-
     discharge = df[df["current"] < 0][cols]
-    soc_discharge = discharge["soc"].diff().abs().sum()
+
+    charged_energy = charge["current"] * charge["voltage"]
     discharged_energy = discharge["current"].abs() * discharge["voltage"]
 
+    soc_charge = charge["soc"].diff().abs().sum()
+    soc_discharge = discharge["soc"].diff().abs().sum()
     soc_factor: float = soc_charge / soc_discharge
 
     rte: float = soc_factor * discharged_energy.sum() / charged_energy.sum()
@@ -54,9 +54,8 @@ def c_rate(df: pd.DataFrame, capacity: float) -> float:
         - current: Current flowing into the battery.
     """
 
-    current = df["current"].abs()
-    total_charge = df["soc"].diff().abs()
-    soc_factor = 100 / total_charge.sum()
+    total_current = df["current"].abs().sum()
+    soc_factor = 100 / df["soc"].diff().abs().sum()
 
-    c_rate: float = soc_factor * (current.sum() / (capacity * 3600))
+    c_rate: float = soc_factor * total_current / (capacity * 3600)
     return c_rate
