@@ -1,33 +1,25 @@
 services:
   task-queue:
-    image: redis:6.2-alpine
+    container_name: task-queue
+    image: rabbitmq:3.8-management-alpine
     ports:
-      - '6379:6379'
-      # api:
-      #   container_name: twaice-rte-api
-      #   build: .
-      #   ports:
-      #     - 8000:8000
-      #   volumes:
-      #     - .:/usr/src/app
-      # task-queue:
-      #   image: redis:6.2-alpine
-      #   restart: always
-      #   ports:
-      #     - '6379:6379'
-      #       command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-      #       volumes:
-      #         - task-queue-volume:/data
-      #     volumes:
-      #       task-queue-volume:
-
-      # pybase-db:
-      #   container_name: pybase-db
-      #   build:
-      #     context: ./pybase/db
-      #     dockerfile: Dockerfile
-      #   expose:
-      #     - 5432
-      #   environment:
-      #     - POSTGRES_USER=postgres
-      #     - POSTGRES_PASSWORD=postgres
+      - 5672:5672
+      - 15672:15672
+    # celery-worker:
+    #   container_name: celery-worker
+    #   build: .
+    #   command: celery -A twaice_rte.app.core.celery_app worker --loglevel=info
+    #   volumes:
+    #     - .:/app
+    # environment:
+    #   - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+    #   - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+    # depends_on:
+    #   - task-queue
+    # api:
+    #   container_name: twaice-rte-api
+    #   build: .
+    #   ports:
+    #     - 8000:8000
+    #   volumes:
+    #     - .:/usr/src/app
