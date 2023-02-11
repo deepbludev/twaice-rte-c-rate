@@ -4,7 +4,7 @@ from fastapi.responses import ORJSONResponse
 from twaice_rte.app import api
 
 app = FastAPI(
-    title="Twaice RTE",
+    title="Twaice RTE Metrics",
     description="API for calculating the RTE and C-rate of a battery.",
     default_response_class=ORJSONResponse,
 )

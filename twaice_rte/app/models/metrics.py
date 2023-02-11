@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Metric(BaseModel):
@@ -10,6 +10,17 @@ class Metric(BaseModel):
         total_data_points (int): Number of data points in the input file.
     """
 
-    rte: float
-    c_rate: float
-    total_data_points: int
+    rte: float = Field(
+        description="Roundtrip efficiency of the battery.",
+        gt=0,
+        lt=1,
+    )
+    c_rate: float = Field(
+        description="C-rate of the battery.",
+        gt=0,
+        lt=1,
+    )
+    total_data_points: int = Field(
+        description="Number of data points in the input file.",
+        gt=0,
+    )

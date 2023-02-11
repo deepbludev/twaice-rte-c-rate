@@ -1,4 +1,4 @@
-import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 import pandas as pd
@@ -12,9 +12,6 @@ celery = Celery(
     broker="amqp://guest:guest@localhost:5672",
     backend="db+sqlite:///db.sqlite3",
 )
-
-
-# celery.conf.task_routes = {"twaice_rte.app.worker": "main-queue"}
 
 
 @celery.task
@@ -34,7 +31,7 @@ def calculate_metrics(df_json: dict[str, Any], nominal_capacity: float) -> Metri
 
     df = pd.DataFrame.from_dict(df_json)
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor() as executor:
         rte_future = executor.submit(rte, df)
         c_rate_future = executor.submit(c_rate, df, nominal_capacity)
 

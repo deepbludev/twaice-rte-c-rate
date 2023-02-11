@@ -37,7 +37,8 @@ def trigger_calculate_metrics(
         df = pd.read_csv(data.file)
     except Exception as e:
         raise HTTPException(
-            status_code=400, detail=f"Problem reading csv file: {str(e)}"
+            status_code=400,
+            detail=f"Problem reading csv file: {str(e)}",
         )
 
     task = calculate_metrics.apply_async(args=[df.to_dict(), nominal_capacity])
