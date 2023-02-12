@@ -7,7 +7,7 @@ from celery import Celery
 from twaice_rte.app.models.metrics import Metric
 from twaice_rte.libs.metrics import c_rate, rte
 
-from .config import get_settings
+from .core.config import get_settings
 
 settings = get_settings()
 

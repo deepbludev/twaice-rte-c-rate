@@ -8,7 +8,7 @@ packages = [{include = "twaice_rte"}]
 
 [tool.poe.tasks]
 test   = "pytest"
-'serve:tasks'   = "celery -A twaice_rte.app.core.task_queue worker --loglevel=info"
+'serve:tasks'   = "celery -A twaice_rte.app.worker worker --loglevel=info"
 'serve:dev'  = "uvicorn twaice_rte.app.main:app --reload --port 8000 --host 0.0.0.0"
 
 [tool.isort]

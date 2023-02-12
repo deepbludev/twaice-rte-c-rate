@@ -2,8 +2,8 @@ import pandas as pd
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
 from pydantic import BaseModel, PositiveFloat
 
-from twaice_rte.app.core.task_queue import calculate_metrics
 from twaice_rte.app.models.metrics import Metric
+from twaice_rte.app.worker import calculate_metrics
 
 router = APIRouter()
 
