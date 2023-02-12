@@ -13,8 +13,9 @@ settings = get_settings()
 
 queue = Celery(
     "worker",
-    broker=settings.BROKER_URL,
-    backend=settings.TASK_DB_URL,
+    task_track_started=True,
+    broker=settings.TASK_BROKER_URL,
+    backend=settings.TASK_BACKEND_URL,
 )
 
 

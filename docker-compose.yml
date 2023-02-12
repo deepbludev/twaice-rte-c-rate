@@ -13,6 +13,8 @@ services:
       - 8000:8000
     volumes:
       - .:/usr/src/app
+    depends_on:
+      - task-queue
 
   celery-worker:
     container_name: celery-worker
@@ -21,5 +23,4 @@ services:
     volumes:
       - .:/usr/src/app
     depends_on:
-      - task-queue
       - api

@@ -14,8 +14,8 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # Task queue
-    BROKER_URL: str = "amqp://guest@task-queue//"
-    TASK_DB_URL: str = "db+sqlite:///db.sqlite3"
+    TASK_BROKER_URL: str = "amqp://guest@task-queue//"
+    TASK_BACKEND_URL: str = "db+sqlite:///db.sqlite3"
 
     class Config:
         env_file = "twaice_rte/.env"  # Place your .env file under this path
