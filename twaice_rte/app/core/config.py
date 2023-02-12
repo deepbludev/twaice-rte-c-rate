@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     TASK_BACKEND_URL: str = "db+sqlite:///db.sqlite3"
 
     class Config:
-        env_file = "twaice_rte/.env"  # Place your .env file under this path
+        env_file = "twaice_rte/.env"
         env_prefix = "TWAICE_RTE_"
         case_sensitive = True
 

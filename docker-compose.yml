@@ -5,6 +5,7 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+
   api:
     container_name: twaice-rte-api
     command: poetry run poe serve:dev
