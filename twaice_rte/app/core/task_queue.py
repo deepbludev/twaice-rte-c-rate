@@ -7,10 +7,14 @@ from celery import Celery
 from twaice_rte.app.models.metrics import Metric
 from twaice_rte.libs.metrics import c_rate, rte
 
+from .config import get_settings
+
+settings = get_settings()
+
 queue = Celery(
     "worker",
-    broker="amqp://guest@task-queue//",
-    backend="db+sqlite:///db.sqlite3",
+    broker=settings.BROKER_URL,
+    backend=settings.TASK_DB_URL,
 )
 
 

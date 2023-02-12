@@ -1,15 +1,10 @@
-from typing import Literal
-
 from fastapi import APIRouter
 
 from twaice_rte.app.api.v1.endpoints import metrics
+from twaice_rte.app.core.config import get_settings
 
-router = APIRouter(prefix="/api/v1")
-
-
-@router.get("/")  # Add the healthcheck endpoint
-def status() -> Literal["OK"]:
-    return "OK"
+settings = get_settings()
+router = APIRouter(prefix=f"/{settings.API_V1_STR}")
 
 
 router.include_router(metrics.router, prefix="/metrics", tags=["Metrics"])
