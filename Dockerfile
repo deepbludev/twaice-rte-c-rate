@@ -19,4 +19,4 @@ RUN apt-get update \
 COPY . .
 RUN poetry install --only main
 
-EXPOSE 8000
+

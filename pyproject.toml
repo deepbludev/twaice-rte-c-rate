@@ -8,9 +8,8 @@ packages = [{include = "twaice_rte"}]
 
 [tool.poe.tasks]
 test   = "pytest"
-'test:cov'   = "pytest --cov=pybase --cov-report=term-missing"
-'serve:celery'   = "celery -A twaice_rte.app.core.celery_app worker --loglevel=info"
-'serve:dev'  = { script = "scripts.serve:dev" }
+'serve:tasks'   = "celery -A twaice_rte.app.core.task_queue worker --loglevel=info"
+'serve:dev'  = "uvicorn twaice_rte.app.main:app --reload --port 8000 --host 0.0.0.0"
 
 [tool.isort]
 profile = "black"

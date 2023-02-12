@@ -2,10 +2,8 @@ import pandas as pd
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
 from pydantic import BaseModel, PositiveFloat
 
-from twaice_rte.app.core.celery_app import calculate_metrics
+from twaice_rte.app.core.task_queue import calculate_metrics
 from twaice_rte.app.models.metrics import Metric
-
-# from twaice_rte.app.worker import calculate_metrics
 
 router = APIRouter()
 
@@ -52,10 +50,10 @@ class GetMetricsResponse(BaseModel):
     data: Metric | None
 
 
-@router.get("/{task_id}")
+@router.get(
+    "/{task_id}",
+    response_model=GetMetricsResponse,
+)
 async def get_metrics(task_id: str) -> GetMetricsResponse:
-    try:
-        task = calculate_metrics.AsyncResult(task_id)
-        return GetMetricsResponse(state=task.state, data=task.result)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    task = calculate_metrics.AsyncResult(task_id)
+    return GetMetricsResponse(state=task.state, data=task.result)

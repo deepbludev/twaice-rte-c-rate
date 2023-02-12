@@ -7,15 +7,15 @@ from celery import Celery
 from twaice_rte.app.models.metrics import Metric
 from twaice_rte.libs.metrics import c_rate, rte
 
-celery = Celery(
+queue = Celery(
     "worker",
-    broker="amqp://guest:guest@localhost:5672",
+    broker="amqp://guest@task-queue//",
     backend="db+sqlite:///db.sqlite3",
 )
 
 
-@celery.task
-def calculate_metrics(df_json: dict[str, Any], nominal_capacity: float) -> Metric:
+@queue.task
+def calculate_metrics(data: dict[str, Any], nominal_capacity: float) -> Metric:
     """
     Calculates the RTE and C-rate of a battery from given data.
     Uses a ThreadPoolExecutor to calculate the metrics in parallel.
@@ -29,7 +29,7 @@ def calculate_metrics(df_json: dict[str, Any], nominal_capacity: float) -> Metri
 
     """
 
-    df = pd.DataFrame.from_dict(df_json)
+    df = pd.DataFrame.from_dict(data)
 
     with ThreadPoolExecutor() as executor:
         rte_future = executor.submit(rte, df)
