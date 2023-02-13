@@ -10,17 +10,17 @@
 * API:
   * Implement proper error handling to handle exceptions and provide meaningful error messages to the client.
   * Implement request and response validation to ensure that the data is correct, the metrics are within [0,1], and other such requirements are met.
-  *   Implement proper security settings and CORS to protect the application and its resources.
+  * Implement proper security settings, CORS, NGINX, etc. to protect the application and its resources.
 
 * Celery:
-  * Use Flower for monitoring Celery tasks and their performance.
+  * Add Flower for monitoring Celery tasks and their performance.
   * Use Celery routes for tasks to enable proper decoupling of tasks.
   * Replace SQLite with a production-level database to ensure better scalability and data integrity.
 
 * Clean architecture:
   * Organize the code using the infra, domain, and app layers, following the clean architecture principles to ensure that each layer has a specific responsibility and is modular and reusable.
   * Implement dependency injection to decouple components and make the application more testable and maintainable.
-  * Move to a CQRS command/query pattern with command and query buses, handlers, etc., if more endpoints are added to the application.
+  * If more endpoints are added to the application, move to a CQRS command/query pattern with command and query buses, handlers, etc. to ensure that the application is scalable and maintainable, and to keep the presentation layer decoupled from the business and application logic.
 
 * Testing:
   * Add pytest tests for end-to-end, integration, and unit tests to ensure the application works as expected and all the edge cases are handled.
