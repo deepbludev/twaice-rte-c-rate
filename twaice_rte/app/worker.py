@@ -26,7 +26,7 @@ def calculate_metrics(data: dict[str, Any], nominal_capacity: float) -> Metric:
     Uses a ThreadPoolExecutor to calculate the metrics in parallel.
 
     Args:
-        df_json (dict[str, Any]): JSON representation of the data.
+        data (dict[str, Any]): JSON representation of the data.
         nominal_capacity (float): Nominal capacity of the battery in Ah.
 
     Returns:
