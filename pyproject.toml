@@ -39,7 +39,7 @@ bandit = "^1.7.4"
 pytest-cov = "^4.0.0"
 poethepoet = "^0.18.1"
 pytest-mypy = "^0.10.3"
-
+mypy = "^0.991"
 
 [build-system]
 requires = ["poetry-core"]
